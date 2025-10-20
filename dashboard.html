@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - EcoGenius</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav>
+    <div class="logo">EcoGenius 🌍</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="selector.html">Analyze</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="reports.html">Reports</a></li>
+    </ul>
+  </nav>
+
+  <div class="dashboard-header">
+    <div>
+      <h1>Kochi City Analysis</h1>
+      <p style="opacity: 0.8;">Updated: Dec 20, 2024</p>
+    </div>
+    <div class="dashboard-actions">
+      <button>📥 Download PDF</button>
+      <button>📊 Export Data</button>
+      <button onclick="window.location.href='selector.html'">← Back</button>
+    </div>
+  </div>
+
+  <div class="dashboard-content">
+    <div>
+      <div class="map-section">
+        <div style="text-align: center;">
+          <p style="font-size: 3rem;">🗺️</p>
+          <p>Heat Map Visualization</p>
+          <p style="font-size: 0.9rem; margin-top: 0.5rem;">Interactive temperature overlay</p>
+        </div>
+
+        <div class="heatmap-legend">
+          <div class="legend-item"><div class="legend-color" style="background:#0ea5e9;"></div><span>Cool (&lt;20°C)</span></div>
+          <div class="legend-item"><div class="legend-color" style="background:#10b981;"></div><span>Mild (20–25°C)</span></div>
+          <div class="legend-item"><div class="legend-color" style="background:#eab308;"></div><span>Warm (25–30°C)</span></div>
+          <div class="legend-item"><div class="legend-color" style="background:#f97316;"></div><span>Hot (30–35°C)</span></div>
+          <div class="legend-item"><div class="legend-color" style="background:#ef4444;"></div><span>Very Hot (&gt;35°C)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="analytics-panel">
+      <div class="score-card">
+        <div class="score-value">68</div>
+        <div class="score-label">Climate Resilience Score</div>
+      </div>
+
+      <div class="metrics-card">
+        <h3>Key Metrics</h3>
+        <div class="metric-row"><span class="metric-label">UHI Risk Level</span><span class="risk-badge risk-high">HIGH</span></div>
+        <div class="metric-row"><span class="metric-label">Avg Temperature</span><span class="metric-value">32.5°C</span></div>
+        <div class="metric-row"><span class="metric-label">Flood Risk</span><span class="risk-badge risk-medium">MEDIUM</span></div>
+        <div class="metric-row"><span class="metric-label">Green Cover</span><span class="metric-value">15%</span></div>
+        <div class="metric-row"><span class="metric-label">Built-up Area</span><span class="metric-value">72%</span></div>
+      </div>
+
+      <div class="recommendations">
+        <h3>AI Recommendations</h3>
+        <div class="recommendation-item"><strong>🌳 Add Green Zones</strong><p>Plant 5000+ trees in Zone A to reduce temperature by ~2°C</p></div>
+        <div class="recommendation-item"><strong>💧 Water Retention</strong><p>Build retention ponds in low-lying areas to reduce flood risk</p></div>
+        <div class="recommendation-item"><strong>🏘️ Green Roofs</strong><p>Install cool roofs on commercial buildings to reduce UHI effect</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

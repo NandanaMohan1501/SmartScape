@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Region - EcoGenius</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <img src="assets/logo.png" class="logo-img">
+      <span>SmartScape</span>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="selector.html" class="active">Analyze</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="reports.html">Reports</a></li>
+    </ul>
+  </nav>
+
+  <div class="selector-container">
+    <div class="sidebar">
+      <h2>Select a region</h2>
+      <div class="region-list">
+        <button class="region-btn" data-lat="9.9816" data-lng="76.2999">Kochi City</button>
+        <button class="region-btn" data-lat="10.0159" data-lng="76.3626">Kakkanad</button>
+        <button class="region-btn" data-lat="9.9656" data-lng="76.2421">Fort Kochi</button>
+        <button class="region-btn" data-lat="10.1076" data-lng="76.3510">Aluva</button>
+        <button class="region-btn" data-lat="10.0284" data-lng="76.3083">Edappally</button>
+        <button class="region-btn" data-lat="9.9983" data-lng="76.2970">Kaloor</button>
+        <button class="region-btn" data-lat="9.9673" data-lng="76.3188">Vyttila</button>
+        <button class="region-btn" data-lat="9.9483" data-lng="76.3497">Tripunithura</button>
+      </div>
+      <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="analyzeRegion()">Analyze Region</button>
+    </div>
+
+    <div class="map-container">
+      <div id="map" style="height: 100%; width: 100%; border-radius: 12px;"></div>
+    </div>
+  </div>
+
+<script>
+  const map = L.map('map').setView([9.9816, 76.2999], 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+  let selectedMarker = null;
+  let selectedRegion = null;
+
+  // Click on map to select a location
+  map.on('click', (e) => {
+    if (selectedMarker) map.removeLayer(selectedMarker);
+    selectedMarker = L.marker(e.latlng).addTo(map);
+    selectedRegion = e.latlng;
+    highlightButton(null); // remove sidebar highlight if user clicks map
+  });
+
+  // Sidebar buttons click
+  const buttons = document.querySelectorAll('.region-btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const lat = parseFloat(this.getAttribute('data-lat'));
+      const lng = parseFloat(this.getAttribute('data-lng'));
+      const latlng = { lat, lng };
+      map.setView(latlng, 13);
+
+      if (selectedMarker) map.removeLayer(selectedMarker);
+      selectedMarker = L.marker(latlng).addTo(map);
+      selectedRegion = latlng;
+
+      highlightButton(this);
+    });
+  });
+
+  // Highlight the selected sidebar button
+  function highlightButton(activeBtn) {
+    buttons.forEach(b => b.classList.remove('active'));
+    if (activeBtn) activeBtn.classList.add('active');
+  }
+
+  // Send POST request to backend
+  function analyzeRegion() {
+    if (!selectedRegion) {
+      alert("Please select a location from map or sidebar!");
+      return;
+    }
+
+    fetch("/api/analyze-region", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ region: selectedRegion })
+    })
+    .then(res => {
+      // Simulate waiting for backend response (you can remove this delay later)
+      console.log("Request sent:", selectedRegion);
+      // Redirect to dashboard page
+      window.location.href = "dashboard.html";
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Error sending request to backend.");
+    });
+  }
+</script>
+
+</body>
+</html>
