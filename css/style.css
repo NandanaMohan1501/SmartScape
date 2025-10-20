@@ -13,26 +13,46 @@
 
     /* ==================== NAVIGATION ==================== */
     nav {
-      background: linear-gradient(135deg, #101728 0%, #0a0e27 100%);
-      border-bottom: 2px solid #10b981;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
-    }
+    /* Uses display: flex and justify-content: space-between to position
+       items (like the logo) on the far left and right. */
+    background: linear-gradient(135deg, #101728 0%, #0a0e27 100%);
+    border-bottom: 2px solid #10b981;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+}
 
-    .logo {
-      font-size: 24px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #10b981 0%, #0ea5e9 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+/* --- Logo Container (.logo) updates --- */
+.logo {
+    /* 1. Use flex to align the image and text side-by-side */
+    display: flex;
+    /* 2. Vertically align the image and text */
+    align-items: center;
+    /* 3. Add a small gap between the image and the text */
+    gap: 0.75rem; /* Adjust space between icon and text */
+
+    /* Text styling (slightly reduced size for a cleaner fit) */
+    font-size: 20px; /* Reduced from 24px for a smaller look */
+    font-weight: 700;
+    background: linear-gradient(135deg, #10b981 0%, #0ea5e9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* --- Logo Image (.logo-img) is now targeted for sizing --- */
+.logo-img {
+    /* Set a fixed small size for the image (e.g., 32x32 pixels) */
+    height: 90px;
+    width: 90px;
+    /* Ensure the image scales down cleanly if it was larger */
+    object-fit: contain;
+}
 
     nav ul {
       display: flex;
